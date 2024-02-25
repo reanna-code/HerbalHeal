@@ -9,6 +9,15 @@ body, html {
   font-style: normal;
 }
 
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 10px;
+  width: 100vw;
+  height: 100vh;
+  line-height: 1.7em;
+}
+
 /* Navigation styles */
 .nav1 {
   position: fixed;
@@ -67,9 +76,30 @@ body, html {
   color: #08260e; /* Change color on hover */
 }
 
-ul {
+.results-ul {
   list-style-type: none;
 }
+
+.results-nav-links {
+  list-style: none;
+  display: flex;
+}
+
+.results-nav-links li {
+  margin-right: 20px;
+}
+
+.results-nav-links li a {
+  text-decoration: none;
+  color: #0e5d1e;
+  font-size: 25px;
+  padding-right: 20px;
+}
+
+.results-nav-links li a:hover {
+  color: #08260e; /* Change color on hover */
+}
+
 
 .website-name {
   font-size: 21px;
@@ -110,6 +140,12 @@ ul {
   text-align: center;
   color: #000000; /* Set text color to black */
   z-index: 2; /* Ensure content appears above the background image */
+
+.results-container {
+  grid-column: 7 / 13;
+  padding: 20px;
+  z-index: 2;
+   color: #000000;
 }
 
 .title {
@@ -177,4 +213,9 @@ button:hover {
   font-size: 55px;
   padding-left: 40px;
   padding-right:40px;
+}
+
+.search-results {
+  padding-top: 130px;
+}
 }

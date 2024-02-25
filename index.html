@@ -1,75 +1,84 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="search-results">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herbal Remedy Finder</title>
+    <title>Search Results</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.typekit.net/kzo3cwb.css">
+    <style>
+        body {
+            background-color: #fff; /* Set background color to white */
+            color: #0e5d1e; /* Set font color to green */
+            text-align: center; /* Align text to center */
+            line-height: 1.6; /* Increase line spacing */
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            justify-items: center;
+            align-items: center;
+            text-align: center;
+        }
+        .container {
+            background-color: #fff; /* Set background color to white */
+            padding: 20px;
+        }
+        .title.search-title {
+            color: #0e5d1e; /* Set font color to green */
+        }
+        .results-container {
+            background-color: #fff; /* Set background color to white */
+            padding: 20px;
+            text-align: left; /* Align text to left */
+        }
+        .results-filter {
+            background-color: #fff; /* Set background color to white */
+            padding: 20px;
+            text-align: left; /* Align text to left */
+        }
+    </style>
 </head>
 <body>
-  
-  <nav class="nav1">
-    <div class="logo"></div>
-    <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#bottom">Search Remedies</a></li>
-    </ul>
-  </nav>
-  
-  <div class="background-image"></div> <!-- Background image div -->
+    <div class="grid">
+        <nav class="results-nav1">
+            <div class="logo"></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
 
-  <div class="container">
-    <h1 class="title" id="home">Welcome to HerbalHeal</h1>
-    <p>Find herbal remedies for your symptoms and medical conditions.</p>
+        <div class="container">
+            <h1 class="title search-title">Search Results</h1>
+            <div class="search-container">
+                <!-- Search form -->
+                <form id="searchForm" class="search-form" onsubmit="searchRemedies(event)">
+                    <input type="text" id="searchInput" placeholder="Enter symptoms or diagnosis">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </div>
 
-    <!-- Grouping search bar and title together -->
-    <div class="search-container">
-      <div class="search-title">
-        <h2 class="desc">Enter any symptoms or diagnoses you have and we will suggest you some herbal remedies!</h2>
-      </div>
-      <!-- Search form -->
-      <form id="searchForm" class="search-form" onsubmit="searchRemedies(event)">
-          <input type="text" id="searchInput" placeholder="Enter symptoms or diagnosis">
-          <button type="submit">Search</button>
-      </form>
+        <div class="results-container">
+            <p> Eczema, also known as atopic dermatitis, is a chronic skin condition characterized by inflammation, redness, itching, and the formation of dry, scaly patches on the skin. It can occur in people of all ages but is more common in children. Eczema is believed to be caused by a combination of genetic, environmental, and immune system factors.</p>
+            <p> Common symptoms of eczema include:</p>
+            <ul>
+                <li>Itching: Often intense and persistent, leading to scratching, which can further irritate the skin.</li>
+                <li>Redness: The affected areas of skin may become red or inflamed.</li>
+                <li>Dryness: Eczema patches are typically dry and can develop into rough, scaly, or thickened skin.</li>
+                <li>Rash: Rash-like patches may appear, often in areas where the skin folds, such as behind the knees, inside the elbows, on the hands, feet, face, or neck.</li>
+                <li>Cracking: The skin may crack or develop small fissures, especially if it becomes excessively dry.</li>
+                <li>Oozing or crusting: In severe cases, eczema lesions may ooze fluid or form crusts.</li>
+            </ul>
+            <p> Eczema is a chronic condition with periods of flare-ups and remission. While there is no cure, various treatments, such as moisturizers, topical corticosteroids, antihistamines, and immune-modulating medications, can help manage symptoms and reduce inflammation. It's essential for individuals with eczema to identify and avoid triggers that exacerbate their symptoms, such as certain foods, environmental allergens, harsh soaps, or stress. Consulting with a dermatologist is recommended for proper diagnosis and treatment planning.</p>
+        </div>
+
+        <div class="results-filter">
+            <h1 class="filter-title">Filter</h1>
+        </div>
     </div>
-  </div>
 
-  <div id="bottom" style="height: 16vh;"></div> <!-- Adjusted height for scrolling -->
-
-  <script src="script.js"></script>
-  <script>
-    document.querySelector('.nav-links li:first-child a').addEventListener('click', function(event) {
-      event.preventDefault();
-      scrollToTop();
-    });
-
-    function scrollToTop() {
-      let currentPosition = window.scrollY || window.pageYOffset;
-      let targetPosition = 0;
-      let distance = targetPosition - currentPosition;
-      let duration = 1000; // Adjust scroll duration here
-      let startTime;
-
-      function ease(t, b, c, d) {
-        t /= d / 2;
-        if (t < 1) return c / 2 * t * t + b;
-        t--;
-        return -c / 2 * (t * (t - 2) - 1) + b;
-      };
-
-      function animation(currentTime) {
-        if (startTime === undefined) startTime = currentTime;
-        let elapsedTime = currentTime - startTime;
-        let scrollTo = ease(elapsedTime, currentPosition, distance, duration);
-        window.scrollTo(0, scrollTo);
-        if (elapsedTime < duration) requestAnimationFrame(animation);
-      }
-
-      requestAnimationFrame(animation);
-    }
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,84 +1,132 @@
 <!DOCTYPE html>
-<html lang="en" class="search-results">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results</title>
+    <title>Herbal Remedy Finder</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.typekit.net/kzo3cwb.css">
     <style>
-        body {
-            background-color: #fff; /* Set background color to white */
-            color: #0e5d1e; /* Set font color to green */
-            text-align: center; /* Align text to center */
-            line-height: 1.6; /* Increase line spacing */
+        /* Add this style for the chevron animation */
+        .scroll-down-chevron {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+          width: 100px; /* Increase the width of the chevron */
+          height: 70px; /* Increase the height of the chevron */
+            opacity: 0.8;
+            animation: fadeChevron 2s infinite;
         }
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            justify-items: center;
-            align-items: center;
-            text-align: center;
+
+        .scroll-down-chevron .chevron {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+          border-top: 40px solid #fff; /* Increase the thickness of the chevron */
+          border-left: 40px solid transparent; /* Adjust the size of the left triangle */
+          border-right: 40px solid transparent; /* Increase border-right */
         }
-        .container {
-            background-color: #fff; /* Set background color to white */
-            padding: 20px;
+
+        .scroll-down-chevron .chevron:before {
+            content: '';
+            position: absolute;
+            top: -50px; /* Increase top */
+            left: 0;
+            width: 0;
+            height: 0;
+            border-top: 50px solid #fff; /* Increase border-top */
+            border-left: 40px solid transparent; /* Increase border-left */
+            border-right: 40px solid transparent; /* Increase border-right */
+            animation: moveChevron 2s infinite;
         }
-        .title.search-title {
-            color: #0e5d1e; /* Set font color to green */
+
+        @keyframes fadeChevron {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.7; }
         }
-        .results-container {
-            background-color: #fff; /* Set background color to white */
-            padding: 20px;
-            text-align: left; /* Align text to left */
+
+        @keyframes moveChevron {
+            0%, 100% { transform: translate(-50%, -20px); } /* Increase translation */
+            50% { transform: translate(-50%, 0); }
         }
-        .results-filter {
-            background-color: #fff; /* Set background color to white */
-            padding: 20px;
-            text-align: left; /* Align text to left */
-        }
+
+      <script>
+
+      <button id="fetchButton">Fetch Data from Flask</button>
+      <div id="dataContainer"></div>
+      document.getElementById('fetchButton').addEventListener('click', function() {
+        fetch('api/data')
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('dataContainer').textContent = data.message;
+          })
+          .catch(error => console.error('Error', error));
+      });
+      
     </style>
 </head>
 <body>
-    <div class="grid">
-        <nav class="results-nav1">
-            <div class="logo"></div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-            </ul>
-        </nav>
+  
+  <nav class="nav1">
+    <div class="logo"></div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#bottom">Search Remedies</a></li>
+    </ul>
+  </nav>
+  
+  <div class="background-image">
+     <img src="pexels-photo-807598.jpeg" alt="leaves-img">
+  </div> <!-- Background image div -->
 
-        <div class="container">
-            <h1 class="title search-title">Search Results</h1>
-            <div class="search-container">
-                <!-- Search form -->
-                <form id="searchForm" class="search-form" onsubmit="searchRemedies(event)">
-                    <input type="text" id="searchInput" placeholder="Enter symptoms or diagnosis">
-                    <button type="submit">Search</button>
-                </form>
-            </div>
-        </div>
+  <div class="container">
+    <h1 class="title" id="home">Welcome to HerbalHeal</h1>
+    <p>Find herbal remedies for your symptoms and medical conditions.</p>
 
-        <div class="results-container">
-            <p> Eczema, also known as atopic dermatitis, is a chronic skin condition characterized by inflammation, redness, itching, and the formation of dry, scaly patches on the skin. It can occur in people of all ages but is more common in children. Eczema is believed to be caused by a combination of genetic, environmental, and immune system factors.</p>
-            <p> Common symptoms of eczema include:</p>
-            <ul>
-                <li>Itching: Often intense and persistent, leading to scratching, which can further irritate the skin.</li>
-                <li>Redness: The affected areas of skin may become red or inflamed.</li>
-                <li>Dryness: Eczema patches are typically dry and can develop into rough, scaly, or thickened skin.</li>
-                <li>Rash: Rash-like patches may appear, often in areas where the skin folds, such as behind the knees, inside the elbows, on the hands, feet, face, or neck.</li>
-                <li>Cracking: The skin may crack or develop small fissures, especially if it becomes excessively dry.</li>
-                <li>Oozing or crusting: In severe cases, eczema lesions may ooze fluid or form crusts.</li>
-            </ul>
-            <p> Eczema is a chronic condition with periods of flare-ups and remission. While there is no cure, various treatments, such as moisturizers, topical corticosteroids, antihistamines, and immune-modulating medications, can help manage symptoms and reduce inflammation. It's essential for individuals with eczema to identify and avoid triggers that exacerbate their symptoms, such as certain foods, environmental allergens, harsh soaps, or stress. Consulting with a dermatologist is recommended for proper diagnosis and treatment planning.</p>
-        </div>
-
-        <div class="results-filter">
-            <h1 class="filter-title">Filter</h1>
-        </div>
+    <!-- Adjusted size of the search container -->
+    <div class="search-container">
+      <div class="search-title">
+        <h2 class="desc">Enter any symptoms or diagnoses you have and we will suggest you some herbal remedies!</h2>
+      </div>
+      <!-- Search form -->
+      <form id="searchForm" class="search-form" onsubmit="searchRemedies(event)">
+          <input type="text" id="searchInput" placeholder="Enter symptoms or diagnosis">
+          <button type="submit">Search</button>
+      </form>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Filter section -->
+    <div class="filter-section">
+        <h2>Filter</h2>
+        <div class="filter-options">
+            <label><input type="checkbox" name="skinType"> Dark Skin</label>
+            <label><input type="checkbox" name="cost"> Low Cost</label>
+            <label><input type="checkbox" name="availability"> Available at Grocery</label>
+        </div>
+    </div>
+  </div>
+
+  <div id="bottom" style="height: 5vh;"></div> <!-- Adjusted height for scrolling -->
+
+  <!-- Add the chevron animation here -->
+  <div class="scroll-down-chevron">
+    <div class="chevron"></div>
+    <div class="chevron"></div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.querySelector('.nav-links li:first-child a').addEventListener('click', function(event) {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 </html>

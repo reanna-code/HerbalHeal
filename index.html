@@ -41,10 +41,35 @@
 
   <script src="script.js"></script>
   <script>
-    document.querySelector('.nav-links li:last-child a').addEventListener('click', function(event) {
+    document.querySelector('.nav-links li:first-child a').addEventListener('click', function(event) {
       event.preventDefault();
-      document.getElementById('bottom').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      scrollToTop();
     });
+
+    function scrollToTop() {
+      let currentPosition = window.scrollY || window.pageYOffset;
+      let targetPosition = 0;
+      let distance = targetPosition - currentPosition;
+      let duration = 1000; // Adjust scroll duration here
+      let startTime;
+
+      function ease(t, b, c, d) {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t + b;
+        t--;
+        return -c / 2 * (t * (t - 2) - 1) + b;
+      };
+
+      function animation(currentTime) {
+        if (startTime === undefined) startTime = currentTime;
+        let elapsedTime = currentTime - startTime;
+        let scrollTo = ease(elapsedTime, currentPosition, distance, duration);
+        window.scrollTo(0, scrollTo);
+        if (elapsedTime < duration) requestAnimationFrame(animation);
+      }
+
+      requestAnimationFrame(animation);
+    }
   </script>
 </body>
 </html>

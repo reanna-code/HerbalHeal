@@ -1,0 +1,50 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herbal Remedy Finder</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.typekit.net/kzo3cwb.css">
+</head>
+<body>
+  
+  <nav class="nav1">
+    <div class="logo"></div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#bottom">Search Remedies</a></li>
+    </ul>
+  </nav>
+  
+  <div class="background-image"></div> <!-- Background image div -->
+
+  <div class="container">
+    <h1 class="title" id="home">Welcome to HerbalHeal</h1>
+    <p>Find herbal remedies for your symptoms and medical conditions.</p>
+
+    <!-- Grouping search bar and title together -->
+    <div class="search-container">
+      <div class="search-title">
+        <h2 class="desc">Enter any symptoms or diagnoses you have and we will suggest you some herbal remedies!</h2>
+      </div>
+      <!-- Search form -->
+      <form id="searchForm" class="search-form" onsubmit="searchRemedies(event)">
+          <input type="text" id="searchInput" placeholder="Enter symptoms or diagnosis">
+          <button type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="bottom" style="height: 16vh;"></div> <!-- Adjusted height for scrolling -->
+
+  <script src="script.js"></script>
+  <script>
+    document.querySelector('.nav-links li:last-child a').addEventListener('click', function(event) {
+      event.preventDefault();
+      document.getElementById('bottom').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  </script>
+</body>
+</html>

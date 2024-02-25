@@ -1,5 +1,27 @@
+<!-- 
+
+<body>
+    <h1>Herbal Treatment Recommendations</h1>
+    <form action="/get_recommendations" method="post">
+        <label for="illness">Enter your illness:</label>
+        <input type="text" id="illness" name="illness" required>
+        <button type="submit">Get Recommendations</button>
+    </form>
+    {% if illness and recommendations %}
+    <h2>Herbal treatments for {{ illness }}:</h2>
+    <ul>
+        {% for recommendation in recommendations %}
+        <li>{{ recommendation }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+
+</html> -->
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,8 +35,10 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-          width: 100px; /* Increase the width of the chevron */
-          height: 70px; /* Increase the height of the chevron */
+            width: 100px;
+            /* Increase the width of the chevron */
+            height: 70px;
+            /* Increase the height of the chevron */
             opacity: 0.8;
             animation: fadeChevron 2s infinite;
         }
@@ -26,107 +50,427 @@
             transform: translate(-50%, -50%);
             width: 0;
             height: 0;
-          border-top: 40px solid #fff; /* Increase the thickness of the chevron */
-          border-left: 40px solid transparent; /* Adjust the size of the left triangle */
-          border-right: 40px solid transparent; /* Increase border-right */
+            border-top: 40px solid #fff;
+            /* Increase the thickness of the chevron */
+            border-left: 40px solid transparent;
+            /* Adjust the size of the left triangle */
+            border-right: 40px solid transparent;
+            /* Increase border-right */
         }
 
         .scroll-down-chevron .chevron:before {
             content: '';
             position: absolute;
-            top: -50px; /* Increase top */
+            top: -50px;
+            /* Increase top */
             left: 0;
             width: 0;
             height: 0;
-            border-top: 50px solid #fff; /* Increase border-top */
-            border-left: 40px solid transparent; /* Increase border-left */
-            border-right: 40px solid transparent; /* Increase border-right */
+            border-top: 50px solid #fff;
+            /* Increase border-top */
+            border-left: 40px solid transparent;
+            /* Increase border-left */
+            border-right: 40px solid transparent;
+            /* Increase border-right */
             animation: moveChevron 2s infinite;
         }
 
         @keyframes fadeChevron {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 0.7; }
+
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
         }
 
         @keyframes moveChevron {
-            0%, 100% { transform: translate(-50%, -20px); } /* Increase translation */
-            50% { transform: translate(-50%, 0); }
+
+            0%,
+            100% {
+                transform: translate(-50%, -20px);
+            }
+
+            /* Increase translation */
+            50% {
+                transform: translate(-50%, 0);
+            }
         }
-
-      <script>
-
-      <button id="fetchButton">Fetch Data from Flask</button>
-      <div id="dataContainer"></div>
-      document.getElementById('fetchButton').addEventListener('click', function() {
-        fetch('api/data')
-          .then(response => response.json())
-          .then(data => {
-            document.getElementById('dataContainer').textContent = data.message;
-          })
-          .catch(error => console.error('Error', error));
-      });
-      
     </style>
 </head>
+
 <body>
-  
-  <nav class="nav1">
-    <div class="logo"></div>
-    <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#bottom">Search Remedies</a></li>
-    </ul>
-  </nav>
-  
-  <div class="background-image">
-     <img src="pexels-photo-807598.jpeg" alt="leaves-img">
-  </div> <!-- Background image div -->
 
-  <div class="container">
-    <h1 class="title" id="home">Welcome to HerbalHeal</h1>
-    <p>Find herbal remedies for your symptoms and medical conditions.</p>
+    <nav class="nav1">
+        <div class="logo"></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#bottom">Search Remedies</a></li>
+        </ul>
+    </nav>
 
-    <!-- Adjusted size of the search container -->
-    <div class="search-container">
-      <div class="search-title">
-        <h2 class="desc">Enter any symptoms or diagnoses you have and we will suggest you some herbal remedies!</h2>
-      </div>
-      <!-- Search form -->
-      <form id="searchForm" class="search-form" onsubmit="searchRemedies(event)">
-          <input type="text" id="searchInput" placeholder="Enter symptoms or diagnosis">
-          <button type="submit">Search</button>
-      </form>
-    </div>
+    <div class="background-image">
+        <img src="pexels-photo-807598.jpeg" alt="leaves-img">
+    </div> <!-- Background image div -->
 
-    <!-- Filter section -->
-    <div class="filter-section">
-        <h2>Filter</h2>
-        <div class="filter-options">
-            <label><input type="checkbox" name="skinType"> Dark Skin</label>
-            <label><input type="checkbox" name="cost"> Low Cost</label>
-            <label><input type="checkbox" name="availability"> Available at Grocery</label>
+    <div class="container">
+        <h1 class="title" id="home">Welcome to HerbalHeal</h1>
+        <p>Find herbal remedies for your symptoms and medical conditions.</p>
+
+        <!-- Adjusted size of the search container -->
+        <div class="search-container">
+            <div class="search-title">
+                <h2 class="desc">Enter any symptoms or diagnoses you have and we will suggest you some herbal remedies!
+                </h2>
+            </div>
+            <!-- Search form -->
+            <form id="searchForm" class="search-form" onsubmit="searchRemedies(event)">
+                <input type="text" id="searchInput" placeholder="Enter symptoms or diagnosis">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Filter section -->
+        <div class="filter-section">
+            <h2>Filter</h2>
+            <div class="filter-options">
+                <label><input type="checkbox" name="skinType"> Dark Skin</label>
+                <label><input type="checkbox" name="cost"> Low Cost</label>
+                <label><input type="checkbox" name="availability"> Available at Grocery</label>
+            </div>
         </div>
     </div>
-  </div>
 
-  <div id="bottom" style="height: 5vh;"></div> <!-- Adjusted height for scrolling -->
+    <div id="bottom" style="height: 5vh;"></div> <!-- Adjusted height for scrolling -->
 
-  <!-- Add the chevron animation here -->
-  <div class="scroll-down-chevron">
-    <div class="chevron"></div>
-    <div class="chevron"></div>
-  </div>
+    <!-- Add the chevron animation here -->
+    <div class="scroll-down-chevron">
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+    </div>
 
-  <script src="script.js"></script>
-  <script>
-    document.querySelector('.nav-links li:first-child a').addEventListener('click', function(event) {
-      event.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  </script>
+    <script src="script.js"></script>
+    <script>
+        document.querySelector('.nav-links li:first-child a').addEventListener('click', function (event) {
+            event.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
 </body>
+
 </html>
+<style>
+    /* style.css */
+    /* General styles */
+    body,
+    html {
+        height: 100%;
+        font-family: "sofia-pro", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        padding-bottom: 600px;
+        /* Add padding to the bottom */
+    }
+
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-gap: 10px;
+        width: 100vw;
+        height: 100vh;
+        line-height: 1.7em;
+    }
+
+    /* Navigation styles */
+    .nav1 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px;
+        background: #ffffff;
+        color: #0e5d1e;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 3;
+        /* Ensure navigation appears above other elements */
+        border-bottom: 3px solid #0e5d1e;
+        /* Add green border */
+    }
+
+    .results-nav1 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px;
+        background: #ffffff;
+        color: #0e5d1e;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 3;
+        /* Ensure navigation appears above other elements */
+        border-bottom: 3px solid #0e5d1e;
+        /* Add green border */
+    }
+
+    .logo {
+        width: 50px;
+        /* Set width of the logo */
+        height: 50px;
+        /* Set height of the logo */
+        background: url('img/NSBE-Hacks-Logo.png') no-repeat center center;
+        /* Replace 'path/to/logo.png' with your logo path */
+        background-size: cover;
+    }
+
+    .nav-links {
+        list-style: none;
+        display: flex;
+    }
+
+    .nav-links li {
+        margin-right: 20px;
+    }
+
+    .nav-links li a {
+        text-decoration: none;
+        color: #0e5d1e;
+        font-size: 25px;
+        padding-right: 20px;
+    }
+
+    .nav-links li a:hover {
+        color: #08260e;
+        /* Change color on hover */
+    }
+
+    .results-ul {
+        list-style-type: none;
+    }
+
+    .results-nav-links {
+        list-style: none;
+        display: flex;
+    }
+
+    .results-nav-links li {
+        margin-right: 20px;
+    }
+
+    .results-nav-links li a {
+        text-decoration: none;
+        color: #0e5d1e;
+        font-size: 25px;
+        padding-right: 20px;
+    }
+
+    .results-nav-links li a:hover {
+        color: #08260e;
+        /* Change color on hover */
+    }
+
+
+    .website-name {
+        font-size: 21px;
+        padding-right: 20px;
+    }
+
+    /* Background image styles */
+    .background-image {
+        background-image: url("https://images.pexels.com/photos/807598/pexels-photo-807598.jpeg");
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        /* Ensure background appears behind other content */
+        filter: blur(3px);
+        /* Optional: Apply blur effect to the background */
+    }
+
+    .results-background-image {
+        position: absolute;
+        z-index: -1;
+        /* Ensure background appears behind other content */
+        filter: blur(3px);
+        /* Optional: Apply blur effect to the background */
+    }
+
+
+    .rsp {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Container styles */
+    .container {
+        position: relative;
+        padding: 20px;
+        padding-bottom: 57px;
+        text-align: center;
+        color: #000000;
+        /* Set text color to black */
+        z-index: 2;
+        padding-bottom: 100px;
+        /* Ensure content appears above the background image */
+
+        .results-container {
+            z-index: 2;
+            color: #000000;
+            grid-column: 2 / 13;
+
+        }
+
+        .search-image {
+            grid-column: 5;
+        }
+
+        .title {
+            font-size: 120px;
+            margin-bottom: 20px;
+            padding-top: 25px;
+            color: white;
+            text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
+            /* Add text shadow */
+        }
+
+        p {
+            font-size: 27px;
+            margin-bottom: 10px;
+            color: white;
+            text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Add styles for the search form */
+        .search-form {
+            margin-top: 20px;
+            /* Adjust the margin as needed */
+            padding-top: 61px;
+        }
+
+        /* Add styles for the search input */
+        .search-form input[type="text"] {
+            width: 70%;
+            padding: 15px;
+            margin-right: 3px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 20px;
+        }
+
+        /* Add styles for the search button */
+        .search-form button {
+            padding: 15px;
+            background-color: #0e5d1e;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+
+        .search-form button:hover {
+            background-color: #08260e;
+        }
+
+        .desc {
+            padding-top: 150px;
+            color: #0e5d1e;
+            font-size: 55px;
+            padding-left: 80px;
+            padding-right: 80px;
+            margin-bottom: -25px;
+            /* Adjust this value as needed */
+        }
+
+        .search-results {
+            padding-top: 130px;
+        }
+
+        /* Adjust the margin or padding for the section containing the arrow */
+        /* Adjust the position of the arrow */
+        .scroll-down-arrow {
+            padding-bottom: 800px;
+            /* Increase the margin to move the arrow up */
+        }
+
+        /* Adjust the margin or padding for the section containing the arrow */
+        .arrow-section {
+            margin-bottom: 400px;
+            /* Increase the margin to create more space beneath the arrow */
+        }
+
+        .results-filter {
+            grid-column: 1 / 2;
+        }
+
+        .filter-section {
+            font-size: 20px;
+        }
+
+    }
+</style>
+<script>// script.js
+
+    function searchRemedies(event) {
+        event.preventDefault();
+        const searchTerm = document.getElementById('searchInput').value;
+        // You can perform additional validation or processing here if needed
+
+        // Redirect to the results page with the search term as a query parameter
+        window.location.href = `results.html?search=${searchTerm}`;
+    }
+
+    document.querySelector('.nav-links li:last-child a').addEventListener('click', function (event) {
+        event.preventDefault();
+        const target = document.getElementById('bottom');
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    const checkbox = document.getElementById('darkSkin');
+    const image = document.getElementById('search');
+
+    checkbox.addEventListener('change', function () {
+        if (this.checked) {
+            image.src = 'img/image-300x200_1.jpg'; // Change to the path of your second image
+        } else {
+            image.src = 'img/image-300x200_1.jpg'; // Change to the path of your first image
+        }
+    });
+
+    document.getElementById('fetchButton').addEventListener('click', function () {
+        fetch('api/data')
+            .then(response => response.json())
+            .then(data => { document.getElementById('dataContainer').textContent = data.message })
+            .catch(error => console.error('Error', error));
+    });
+
+
+</script>
